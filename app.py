@@ -1,25 +1,21 @@
+# File: app.py
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-import pymysql
-from flask_mysqldb import MySQL
-import os
+import pymysql.cursors  # Replaced MySQLdb with PyMySQL
+import re
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-# Database URI
-mysql_uri = 'mysql://avnadmin:AVNS_SuiIc5LFEoPHfbK1SsG@mysql-2a8c64cb-avishkargawali07-5424.h.aivencloud.com:20013/defaultdb?ssl-mode=REQUIRED'
+# Configure MySQL using pymysql
+import pymysql
+pymysql.install_as_MySQLdb()
+from flask_mysqldb import MySQL
 
-# Split URI into components
-from urllib.parse import urlparse
-url = urlparse(mysql_uri)
-
-# Set MySQL configurations
-app.config['MYSQL_HOST'] = url.hostname
-app.config['MYSQL_PORT'] = url.port
-app.config['MYSQL_USER'] = url.username
-app.config['MYSQL_PASSWORD'] = url.password
-app.config['MYSQL_DB'] = url.path[1:]  # Remove the leading '/'
-app.config['MYSQL_SSL_CERT'] = '/path/to/client-cert.pem'  # Ensure SSL certificates are correct
+# app.config['MYSQL_HOST'] = 'your-database-name.onrender.com'  # Or wherever your MySQL is hosted
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = '1234567'
+app.config['MYSQL_DB'] = 'user_authentication'
 
 mysql = MySQL(app)
 
@@ -87,4 +83,16 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    app.run(debug=True)
+
+
+
+# CREATE DATABASE flaskapp;
+# USE flaskapp;
+# CREATE TABLE users (
+#     id INT AUTO_INCREMENT PRIMARY KEY,
+#     name VARCHAR(100),
+#     email VARCHAR(100),
+#     username VARCHAR(50) UNIQUE,
+#     password VARCHAR(100)
+# );
