@@ -1,20 +1,28 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-import pymysql.cursors
+import pymysql
 from flask_mysqldb import MySQL
 import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-# MySQL configuration
-app.config['MYSQL_HOST'] = 'mysql-2a8c64cb-avishkargawali07-5424.h.aivencloud.com'
-app.config['MYSQL_PORT'] = 20013
-app.config['MYSQL_USER'] = 'avnadmin'
-app.config['MYSQL_PASSWORD'] = 'AVNS_SuiIc5LFEoPHfbK1SsG'
-app.config['MYSQL_DB'] = 'defaultdb'
-app.config['MYSQL_SSL_CERT'] = '/path/to/client-cert.pem'  # If needed for SSL
+# Database URI
+mysql_uri = 'mysql://avnadmin:AVNS_SuiIc5LFEoPHfbK1SsG@mysql-2a8c64cb-avishkargawali07-5424.h.aivencloud.com:20013/defaultdb?ssl-mode=REQUIRED'
+
+# Split URI into components
+from urllib.parse import urlparse
+url = urlparse(mysql_uri)
+
+# Set MySQL configurations
+app.config['MYSQL_HOST'] = url.hostname
+app.config['MYSQL_PORT'] = url.port
+app.config['MYSQL_USER'] = url.username
+app.config['MYSQL_PASSWORD'] = url.password
+app.config['MYSQL_DB'] = url.path[1:]  # Remove the leading '/'
+app.config['MYSQL_SSL_CERT'] = '/path/to/client-cert.pem'  # Ensure SSL certificates are correct
 
 mysql = MySQL(app)
+
 @app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -79,16 +87,4 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=8000)
-
-
-
-# CREATE DATABASE flaskapp;
-# USE flaskapp;
-# CREATE TABLE users (
-#     id INT AUTO_INCREMENT PRIMARY KEY,
-#     name VARCHAR(100),
-#     email VARCHAR(100),
-#     username VARCHAR(50) UNIQUE,
-#     password VARCHAR(100)
-# );
+    app.run(debug=True, host='0.0.0.0', port=8000)
