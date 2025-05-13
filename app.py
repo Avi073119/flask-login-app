@@ -1,25 +1,20 @@
-# File: app.py
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-import pymysql.cursors  # Replaced MySQLdb with PyMySQL
-import re
+import pymysql.cursors
+from flask_mysqldb import MySQL
+import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-# Configure MySQL using pymysql
-import pymysql
-pymysql.install_as_MySQLdb()
-from flask_mysqldb import MySQL
-
-app.config['MYSQL_HOST'] = 'mysql.railway.internal'
-app.config['MYSQL_PORT'] = 3306
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'ObHHPXhCIKiCJmsvnrZTsgwzXWbqPbkx'
-app.config['MYSQL_DB'] = 'railway'
-
+# MySQL configuration
+app.config['MYSQL_HOST'] = 'mysql-2a8c64cb-avishkargawali07-5424.h.aivencloud.com'
+app.config['MYSQL_PORT'] = 20013
+app.config['MYSQL_USER'] = 'avnadmin'
+app.config['MYSQL_PASSWORD'] = 'AVNS_SuiIc5LFEoPHfbK1SsG'
+app.config['MYSQL_DB'] = 'defaultdb'
+app.config['MYSQL_SSL_CERT'] = '/path/to/client-cert.pem'  # If needed for SSL
 
 mysql = MySQL(app)
-
 @app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
 def login():
