@@ -10,6 +10,7 @@ Django==5.1.5
 executing==2.1.0
 Flask==3.1.0
 Flask-MySQLdb==2.0.0
+gunicorn==21.2.0
 ipykernel==6.29.5
 ipython==8.31.0
 itsdangerous==2.2.0
