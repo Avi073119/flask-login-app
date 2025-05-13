@@ -86,7 +86,8 @@ def logout():
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=8000)
 
-# MySQL Setup (run this in your MySQL CLI or tool):
+
+
 # CREATE DATABASE flaskapp;
 # USE flaskapp;
 # CREATE TABLE users (
