@@ -12,10 +12,11 @@ pymysql.install_as_MySQLdb()
 from flask_mysqldb import MySQL
 
 # app.config['MYSQL_HOST'] = 'your-database-name.onrender.com'  # Or wherever your MySQL is hosted
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '1234567'
-app.config['MYSQL_DB'] = 'user_authentication'
+app.config['MYSQL_HOST'] = 'db4free.net'
+app.config['MYSQL_USER'] = 'avishkar_07'
+app.config['MYSQL_PASSWORD'] = 'Avishkar07'
+app.config['MYSQL_DB'] = 'flaskapp_db'
+
 
 mysql = MySQL(app)
 
