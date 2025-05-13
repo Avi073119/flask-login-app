@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: flask-login-app
+    env: python
+    buildCommand: ""
+    startCommand: python app.py
+    envVars:
+      - key: MYSQL_HOST
+        value: db4free.net
+      - key: MYSQL_USER
+        value: avishkar_07
+      - key: MYSQL_PASSWORD
+        value: Avishkar07
+      - key: MYSQL_DB
+        value: flaskapp_db
